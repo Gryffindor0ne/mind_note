@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import "./App.css";
-import List from "@pages/DiaryList";
+import List from "@pages/List";
 import Diary from "@pages/Diary";
 import New from "@pages/NewDiary";
 
