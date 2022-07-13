@@ -1,8 +1,15 @@
 import React from "react";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
-  return <div className="App">Hello World!</div>;
-}
+import "./App.css";
+import DiaryList from "@pages/DiaryList";
+
+const App = () => (
+  <Router>
+    <Routes>
+      <Route path="/" element={<DiaryList />} />
+    </Routes>
+  </Router>
+);
 
 export default App;
