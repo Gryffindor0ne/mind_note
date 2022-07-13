@@ -13,7 +13,7 @@ export type DiaryInfo = {
 export const SummaryDiary = ({ diary }: { diary: DiaryInfo }): JSX.Element => {
   const writtenDate = () => {
     const date = dayjs(diary.writtenAt);
-    return date.format("YY-MM-DD");
+    return date.format("YYYY년 MM월 DD일");
   };
 
   return (
