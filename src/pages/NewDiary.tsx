@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
-export type NoteInfo = {
-  id: number;
-  title: string;
-  content: string;
-  tags: string[];
-};
+import { usePostsContextState, DiaryInfo } from "@contexts/PostsContext";
 
 const NewDiary = () => {
   const navigate = useNavigate();
+  const URL = "http://localhost:4000";
+  const { posts, setPosts } = usePostsContextState();
 
-  const [inputValue, setInputValue] = useState<NoteInfo>({
+  const [inputValue, setInputValue] = useState<DiaryInfo>({
     id: 0,
     title: "",
     content: "",
     tags: [],
+    writtenAt: "",
   });
 
   const addTag = (
@@ -45,9 +44,32 @@ const NewDiary = () => {
     });
   };
 
-  // const postNote = async() => {
+  const postNote = async () => {
+    if (inputValue.title === "" && inputValue.content === "") {
+      alert("제목과 본문은 빈 칸일 수 없습니다.");
+    } else {
+      try {
+        const response = await axios.post(`${URL}/notes`, {
+          id: posts.length,
+          title: inputValue.title,
+          content: inputValue.content,
+          tags: inputValue.tags,
+          writtenAt: new Date().toISOString(),
+        });
 
-  // }
+        console.log(response);
+
+        if (response.status === 201) {
+          alert("success");
+          navigate(-1);
+        } else {
+          throw new Error("Network Error");
+        }
+      } catch (err) {
+        throw new Error(`${err}`);
+      }
+    }
+  };
 
   return (
     <>
@@ -98,8 +120,8 @@ const NewDiary = () => {
         <AiOutlineArrowLeft />
         뒤로 가기
       </div>
-      <span>취소</span>
-      <span>등록</span>
+      <button>취소</button>
+      <button onClick={postNote}>등록</button>
     </>
   );
 };

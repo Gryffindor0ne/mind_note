@@ -24,6 +24,6 @@
   "include": [
     "src",
     "craco.config.js",
-    "tsconfig.paths.json",
+    "tsconfig.paths.json", "server.js",
   ]
 }

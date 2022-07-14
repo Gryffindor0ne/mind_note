@@ -28,14 +28,14 @@ const postsContextDefaultValues: PostsContextState = {
   setPosts: () => {},
 };
 
-const TagContextState = createContext<TagContextState>(tagContextDefaultValues);
+const TagContext = createContext<TagContextState>(tagContextDefaultValues);
 
-const PostsContextState = createContext<PostsContextState>(
+const PostsContext = createContext<PostsContextState>(
   postsContextDefaultValues
 );
 
 const useTagContextState = () => {
-  const context = useContext(TagContextState);
+  const context = useContext(TagContext);
 
   if (context === undefined) {
     throw new Error("TagContextState was used outside of its Provider");
@@ -45,7 +45,7 @@ const useTagContextState = () => {
 };
 
 const usePostsContextState = () => {
-  const context = useContext(PostsContextState);
+  const context = useContext(PostsContext);
 
   if (context === undefined) {
     throw new Error("PostsContextState was used outside of its Provider");
@@ -66,11 +66,9 @@ const PostsContextProvider = ({ children }: { children: JSX.Element }) => {
   console.log(postsState);
 
   return (
-    <PostsContextState.Provider value={postsState}>
-      <TagContextState.Provider value={tagState}>
-        {children}
-      </TagContextState.Provider>
-    </PostsContextState.Provider>
+    <PostsContext.Provider value={postsState}>
+      <TagContext.Provider value={tagState}>{children}</TagContext.Provider>
+    </PostsContext.Provider>
   );
 };
 
