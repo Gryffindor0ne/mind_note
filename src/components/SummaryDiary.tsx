@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 import { DiaryInfo } from "@contexts/PostsContext";
 import { koreanDateFormatter } from "@utils/dateUtils";
