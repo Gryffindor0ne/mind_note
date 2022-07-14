@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 import { usePostsContextState, DiaryInfo } from "@contexts/PostsContext";
 import { koreanDateFormatter } from "@utils/dateUtils";
@@ -30,6 +31,15 @@ const Diary = () => {
           })}
         </div>
         <div>{currentDiary?.content}</div>
+
+        <div
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <AiOutlineArrowLeft />
+          <span>글 목록으로</span>
+        </div>
       </section>
     </>
   );

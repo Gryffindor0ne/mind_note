@@ -12,7 +12,7 @@ export const SummaryDiary = ({ diary }: { diary: DiaryInfo }): JSX.Element => {
     <>
       <section
         onClick={() => {
-          navigate(`/diary/${diary.id.toString()}`);
+          navigate(`/diary/${diary.id}`);
         }}
       >
         <div>{diary.title}</div>
