@@ -3,7 +3,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
 import { SummaryDiary } from "@components/SummaryDiary";
-import Header from "@components/Header";
+
 import {
   usePostsContextState,
   useTagContextState,
@@ -43,7 +43,6 @@ const DiaryList = () => {
 
   return (
     <>
-      <Header />
       {posts.map((diary) => {
         return <SummaryDiary key={uuidv4()} diary={diary} />;
       })}
