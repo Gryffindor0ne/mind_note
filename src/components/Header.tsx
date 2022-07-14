@@ -6,9 +6,9 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 50px;
-  width: 100%;
-  height: 85px;
+  padding: 0 70px;
+  width: 100vw;
+  height: 15vh;
 `;
 
 const Title = styled.h1`
