@@ -1,14 +1,7 @@
 import React from "react";
 import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
-
-export type DiaryInfo = {
-  id: number;
-  title: string;
-  content: string;
-  tags: string[];
-  writtenAt: string;
-};
+import { DiaryInfo } from "@contexts/PostsContext";
 
 export const SummaryDiary = ({ diary }: { diary: DiaryInfo }): JSX.Element => {
   const writtenDate = () => {
