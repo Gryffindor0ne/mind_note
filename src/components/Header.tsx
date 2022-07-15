@@ -2,6 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import { useTagContextState } from "@contexts/PostsContext";
+
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -15,6 +17,10 @@ const Title = styled.h1`
   cursor: pointer;
   font-size: 3rem;
   margin: 1.5rem 1rem;
+
+  :hover {
+    opacity: 0.7;
+  }
 `;
 
 const WriteBtn = styled.button`
@@ -41,6 +47,7 @@ const WriteBtn = styled.button`
 
 const Header = () => {
   const navigate = useNavigate();
+  const { setTag } = useTagContextState();
 
   return (
     <>
@@ -48,6 +55,7 @@ const Header = () => {
         <Title
           onClick={() => {
             navigate(`/`);
+            setTag("");
           }}
         >
           Mind Note

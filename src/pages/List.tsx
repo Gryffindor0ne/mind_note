@@ -59,7 +59,7 @@ const DiaryList = () => {
         })
       );
     }
-  }, [tag]);
+  }, [tag, posts]);
 
   console.log(selectedTagPosts);
 
