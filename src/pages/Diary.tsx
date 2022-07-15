@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import styled from "styled-components";
 
 import { usePostsContextState, DiaryInfo } from "@contexts/PostsContext";
 import { koreanDateFormatter } from "@utils/dateUtils";
+import Tags from "@components/Tags";
 
 const Container = styled.section`
   display: flex;
@@ -30,22 +30,6 @@ const Date = styled.div`
 
 const TagContainer = styled.div`
   display: flex;
-`;
-
-const TagBtn = styled.button`
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #e0e0e0;
-  border-radius: 25px;
-  background: white;
-  color: #90a4ae;
-  width: 6rem;
-  height: 2.5rem;
-  font-size: 1rem;
-  font-weight: bold;
-  margin: 0.5rem 0.8rem 0 0;
 `;
 
 const Content = styled.div`
@@ -92,9 +76,7 @@ const Diary = () => {
         <Title>{currentDiary?.title}</Title>
         <Date>{koreanDateFormatter(currentDiary?.writtenAt)}</Date>
         <TagContainer>
-          {currentDiary?.tags.map((el) => {
-            return <TagBtn key={uuidv4()}>{el}</TagBtn>;
-          })}
+          <Tags tags={currentDiary?.tags} />
         </TagContainer>
         <Content>{currentDiary?.content}</Content>
 

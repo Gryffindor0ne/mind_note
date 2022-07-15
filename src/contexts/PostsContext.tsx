@@ -9,8 +9,8 @@ export type DiaryInfo = {
 };
 
 export type TagContextState = {
-  tags: string[];
-  setTags: (tags: string[]) => void;
+  tag: string;
+  setTag: (tag: string) => void;
 };
 
 export type PostsContextState = {
@@ -19,8 +19,8 @@ export type PostsContextState = {
 };
 
 const tagContextDefaultValues: TagContextState = {
-  tags: [],
-  setTags: () => {},
+  tag: "",
+  setTag: () => {},
 };
 
 const postsContextDefaultValues: PostsContextState = {
@@ -55,11 +55,11 @@ const usePostsContextState = () => {
 };
 
 const PostsContextProvider = ({ children }: { children: JSX.Element }) => {
-  const [tags, setTags] = useState<string[]>(tagContextDefaultValues.tags);
+  const [tag, setTag] = useState<string>(tagContextDefaultValues.tag);
 
   const [posts, setPosts] = useState<DiaryInfo[]>([]);
 
-  const tagState = useMemo(() => ({ tags, setTags }), [tags]);
+  const tagState = useMemo(() => ({ tag, setTag }), [tag]);
   const postsState = useMemo(() => ({ posts, setPosts }), [posts]);
 
   console.log(tagState);

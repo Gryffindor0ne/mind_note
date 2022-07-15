@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
@@ -29,20 +29,16 @@ const Title = styled.h1`
 const DiaryList = () => {
   const URL = "http://localhost:4000";
   const { posts, setPosts } = usePostsContextState();
-  const { tags, setTags } = useTagContextState();
+  const { tag } = useTagContextState();
+
+  const [selectedTagPosts, setSelectdPosts] = useState<DiaryInfo[]>([]);
 
   const getPostData = useCallback(async () => {
     try {
       const getData = await axios.get(`${URL}/notes`);
-      let allTags: string[] = [];
+
       if (getData.status === 200) {
         setPosts(getData.data);
-        getData.data.map((el: DiaryInfo) =>
-          el.tags.forEach((e) => {
-            if (!allTags.includes(e)) allTags.push(e);
-          })
-        );
-        setTags(allTags);
       } else {
         throw new Error("Network Error");
       }
@@ -51,19 +47,34 @@ const DiaryList = () => {
     }
   }, [setPosts]);
 
-  console.log(tags);
-
   useEffect(() => {
     getPostData();
   }, [getPostData]);
+
+  useEffect(() => {
+    if (tag) {
+      setSelectdPosts(
+        posts.filter((el) => {
+          return el.tags.includes(tag);
+        })
+      );
+    }
+  }, [tag]);
+
+  console.log(selectedTagPosts);
 
   return (
     <>
       <Container>
         <Title>일기 목록</Title>
-        {posts.map((diary) => {
-          return <SummaryDiary key={uuidv4()} diary={diary} />;
-        })}
+
+        {tag.length !== 0
+          ? selectedTagPosts.map((diary) => {
+              return <SummaryDiary key={uuidv4()} diary={diary} />;
+            })
+          : posts.map((diary) => {
+              return <SummaryDiary key={uuidv4()} diary={diary} />;
+            })}
       </Container>
     </>
   );
