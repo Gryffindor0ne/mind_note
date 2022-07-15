@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+import { IoMdArrowRoundBack } from "react-icons/io";
 import styled from "styled-components";
 
 import { usePostsContextState, DiaryInfo } from "@contexts/PostsContext";
@@ -103,7 +103,7 @@ const Diary = () => {
             navigate(-1);
           }}
         >
-          <AiOutlineArrowLeft />
+          <IoMdArrowRoundBack />
           <span>글 목록으로</span>
         </BackBtn>
       </Container>
