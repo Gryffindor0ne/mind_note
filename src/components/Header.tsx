@@ -6,12 +6,14 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 70px;
+  padding: 0 120px;
   width: 100vw;
   height: 15vh;
 `;
 
 const Title = styled.h1`
+  cursor: pointer;
+  font-size: 3rem;
   margin: 1.5rem 1rem;
 `;
 
@@ -20,14 +22,21 @@ const WriteBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid #e0e0e0;
-  border-radius: 25px;
+  border: 1px solid #90a4ae;
+  border-radius: 10px;
   background: white;
   color: #90a4ae;
   width: 8rem;
   height: 3rem;
   font-size: 1.2rem;
   font-weight: bold;
+
+  :hover {
+    border: none;
+    background: #1de9b6;
+    color: white;
+    font-weight: bold;
+  }
 `;
 
 const Header = () => {
@@ -36,7 +45,13 @@ const Header = () => {
   return (
     <>
       <HeaderContainer>
-        <Title>Mind Note</Title>
+        <Title
+          onClick={() => {
+            navigate(`/`);
+          }}
+        >
+          Mind Note
+        </Title>
         <WriteBtn
           onClick={() => {
             navigate(`/diary/new`);
