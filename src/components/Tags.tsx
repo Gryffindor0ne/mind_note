@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 
@@ -28,6 +29,7 @@ const TagBtn = styled.button`
 `;
 
 const Tags = ({ tags }: { tags: string[] | undefined }) => {
+  const navigate = useNavigate();
   const { tag, setTag } = useTagContextState();
 
   const tagClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -35,6 +37,7 @@ const Tags = ({ tags }: { tags: string[] | undefined }) => {
 
     if (target) {
       setTag(target.innerHTML);
+      navigate("/diary");
     }
   };
 

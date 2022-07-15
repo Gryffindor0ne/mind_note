@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { IoMdArrowRoundBack, IoMdCloseCircle } from "react-icons/io";
-
+import Swal from "sweetalert2";
 import styled from "styled-components";
 
 import { usePostsContextState, DiaryInfo } from "@contexts/PostsContext";
@@ -98,6 +98,7 @@ const ContentInput = styled.textarea`
   outline: none;
   margin: 2rem 0;
   background-color: #eceff1;
+  line-height: 1.7rem;
 
   ::placeholder {
     color: #b0bec5;
@@ -208,10 +209,18 @@ const NewDiary = () => {
         console.log(response);
 
         if (response.status === 201) {
-          alert("success");
+          Swal.fire({
+            title: "일기 등록완료",
+            text: "새 일기가 등록되었습니다!",
+            icon: "success",
+          });
           navigate(-1);
         } else {
-          throw new Error("Network Error");
+          Swal.fire({
+            title: "일기 등록 실패",
+            text: "새 일기 등록에 실패하였습니다!",
+            icon: "error",
+          });
         }
       } catch (err) {
         throw new Error(`${err}`);
