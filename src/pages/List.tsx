@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { SummaryDiary } from "@components/SummaryDiary";
@@ -25,18 +26,48 @@ const Container = styled.section`
   margin-right: auto;
 `;
 
-const Title = styled.h1`
-  font-size: 2rem;
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
   border-bottom: 2px solid #e0e0e0;
   margin: 3rem 0rem;
   padding: 2rem 0rem;
 `;
 
+const Title = styled.h1`
+  font-size: 2rem;
+`;
+
+const AllDairyViewBtn = styled.button`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #e0e0e0;
+  border-radius: 15px;
+  background: white;
+  color: #90a4ae;
+  width: 8rem;
+  height: 3rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+
+  :hover {
+    border: none;
+    background: #1de9b6;
+    color: white;
+    font-weight: bold;
+  }
+`;
+
 const DiaryList = () => {
   const URL = "http://localhost:4000";
+  const navigate = useNavigate();
   const { posts, setPosts } = usePostsContextState();
   const { tag, setTag } = useTagContextState();
-  const { dates } = useDateContextState();
+  const { dates, setDates } = useDateContextState();
   const [startDate, endDate] = dates;
 
   const [selectedTagPosts, setSelectedTagPosts] = useState<DiaryInfo[]>([]);
@@ -86,7 +117,18 @@ const DiaryList = () => {
   return (
     <>
       <Container>
-        <Title>일기 목록</Title>
+        <TitleContainer>
+          <Title>일기 목록</Title>
+          <AllDairyViewBtn
+            onClick={() => {
+              navigate(`/`);
+              setTag("");
+              setDates([]);
+            }}
+          >
+            전체 글 보기
+          </AllDairyViewBtn>
+        </TitleContainer>
         <DateRangeFinder />
 
         {tag.length !== 0
