@@ -161,7 +161,7 @@ const RegisterBtn = styled.button`
 const NewDiary = () => {
   const navigate = useNavigate();
   const URL = "http://localhost:4000";
-  const { posts, setPosts } = usePostsContextState();
+  const { posts } = usePostsContextState();
 
   const [inputValue, setInputValue] = useState<DiaryInfo>({
     id: 0,
