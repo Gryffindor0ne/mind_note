@@ -30,7 +30,7 @@ const TagBtn = styled.button`
 
 const Tags = ({ tags }: { tags: string[] | undefined }) => {
   const navigate = useNavigate();
-  const { tag, setTag } = useTagContextState();
+  const { setTag } = useTagContextState();
 
   const tagClick = (event: React.MouseEvent<HTMLElement>) => {
     const target = event.target as HTMLButtonElement;

@@ -24,7 +24,7 @@ const Text = styled.div`
 `;
 
 export default function DateRangeFinder() {
-  const { tag, setTag } = useTagContextState();
+  const { tag } = useTagContextState();
   const { dates, setDates } = useDateContextState();
   const [startValue, setStartValue] = React.useState<Date | null>(null);
   const [endValue, setEndValue] = React.useState<Date | null>(null);
@@ -46,7 +46,7 @@ export default function DateRangeFinder() {
       setStartValue(null);
       setEndValue(null);
     }
-  }, [tag]);
+  }, [tag, setDates]);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>

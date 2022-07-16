@@ -9,7 +9,6 @@ export const koreanDateFormatter = (date: string | undefined) => {
 
 export const dateRangeCheck = (range: string[], targetDate: string) => {
   const [startDate, endDate] = range;
-  console.log(startDate, endDate);
-  console.log(dayjs(targetDate).isBetween(startDate, endDate));
+
   return dayjs(targetDate).isBetween(startDate, endDate);
 };

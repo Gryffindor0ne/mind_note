@@ -36,7 +36,7 @@ const DiaryList = () => {
   const URL = "http://localhost:4000";
   const { posts, setPosts } = usePostsContextState();
   const { tag, setTag } = useTagContextState();
-  const { dates, setDates } = useDateContextState();
+  const { dates } = useDateContextState();
   const [startDate, endDate] = dates;
 
   const [selectedTagPosts, setSelectedTagPosts] = useState<DiaryInfo[]>([]);
@@ -67,7 +67,7 @@ const DiaryList = () => {
   }, [tag, posts]);
 
   useEffect(() => {
-    if (startDate !== null && endDate !== null) {
+    if (startDate !== undefined && endDate !== undefined) {
       setSelectedDatePosts(
         posts.filter((el) => {
           return dateRangeCheck(
@@ -81,7 +81,7 @@ const DiaryList = () => {
       );
       setTag("");
     }
-  }, [dates, posts]);
+  }, [dates, posts, startDate, endDate, setTag]);
 
   return (
     <>
