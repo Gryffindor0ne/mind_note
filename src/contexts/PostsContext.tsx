@@ -18,6 +18,11 @@ export type PostsContextState = {
   setPosts: (posts: DiaryInfo[]) => void;
 };
 
+export type DateContextState = {
+  dates: string[];
+  setDates: (data: string[]) => void;
+};
+
 const tagContextDefaultValues: TagContextState = {
   tag: "",
   setTag: () => {},
@@ -28,11 +33,18 @@ const postsContextDefaultValues: PostsContextState = {
   setPosts: () => {},
 };
 
+const dateContextDefaultValues: DateContextState = {
+  dates: [],
+  setDates: () => {},
+};
+
 const TagContext = createContext<TagContextState>(tagContextDefaultValues);
 
 const PostsContext = createContext<PostsContextState>(
   postsContextDefaultValues
 );
+
+const DateContext = createContext<DateContextState>(dateContextDefaultValues);
 
 const useTagContextState = () => {
   const context = useContext(TagContext);
@@ -54,22 +66,37 @@ const usePostsContextState = () => {
   return context;
 };
 
+const useDateContextState = () => {
+  const context = useContext(DateContext);
+
+  if (context === undefined) {
+    throw new Error("DateContextState was used outside of its Provider");
+  }
+
+  return context;
+};
+
 const PostsContextProvider = ({ children }: { children: JSX.Element }) => {
   const [tag, setTag] = useState<string>(tagContextDefaultValues.tag);
-
   const [posts, setPosts] = useState<DiaryInfo[]>([]);
+  const [dates, setDates] = useState<string[]>([]);
 
   const tagState = useMemo(() => ({ tag, setTag }), [tag]);
   const postsState = useMemo(() => ({ posts, setPosts }), [posts]);
-
-  console.log(tagState);
-  console.log(postsState);
+  const datesState = useMemo(() => ({ dates, setDates }), [dates]);
 
   return (
     <PostsContext.Provider value={postsState}>
-      <TagContext.Provider value={tagState}>{children}</TagContext.Provider>
+      <DateContext.Provider value={datesState}>
+        <TagContext.Provider value={tagState}>{children}</TagContext.Provider>
+      </DateContext.Provider>
     </PostsContext.Provider>
   );
 };
 
-export { PostsContextProvider, useTagContextState, usePostsContextState };
+export {
+  PostsContextProvider,
+  useTagContextState,
+  usePostsContextState,
+  useDateContextState,
+};

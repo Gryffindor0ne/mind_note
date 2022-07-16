@@ -206,8 +206,6 @@ const NewDiary = () => {
           writtenAt: new Date().toISOString(),
         });
 
-        console.log(response);
-
         if (response.status === 201) {
           Swal.fire({
             title: "일기 등록완료",

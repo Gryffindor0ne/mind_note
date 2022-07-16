@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { useTagContextState } from "@contexts/PostsContext";
+import { useDateContextState } from "@contexts/PostsContext";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -48,6 +49,7 @@ const WriteBtn = styled.button`
 const Header = () => {
   const navigate = useNavigate();
   const { setTag } = useTagContextState();
+  const { setDates } = useDateContextState();
 
   return (
     <>
@@ -56,6 +58,7 @@ const Header = () => {
           onClick={() => {
             navigate(`/`);
             setTag("");
+            setDates([]);
           }}
         >
           Mind Note

@@ -41,8 +41,6 @@ const Tags = ({ tags }: { tags: string[] | undefined }) => {
     }
   };
 
-  console.log(tag);
-
   return (
     <>
       {tags?.map((el: string) => {

@@ -4,12 +4,18 @@ import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 
 import { SummaryDiary } from "@components/SummaryDiary";
+import DateRangeFinder from "@components/DateRangeFinder";
 
 import {
   usePostsContextState,
   useTagContextState,
+  useDateContextState,
   DiaryInfo,
 } from "@contexts/PostsContext";
+
+import { dateRangeCheck } from "@utils/dateUtils";
+import { sortListDescend } from "@utils/listSorts";
+import dayjs from "dayjs";
 
 const Container = styled.section`
   display: flex;
@@ -29,9 +35,12 @@ const Title = styled.h1`
 const DiaryList = () => {
   const URL = "http://localhost:4000";
   const { posts, setPosts } = usePostsContextState();
-  const { tag } = useTagContextState();
+  const { tag, setTag } = useTagContextState();
+  const { dates, setDates } = useDateContextState();
+  const [startDate, endDate] = dates;
 
-  const [selectedTagPosts, setSelectdPosts] = useState<DiaryInfo[]>([]);
+  const [selectedTagPosts, setSelectedTagPosts] = useState<DiaryInfo[]>([]);
+  const [selectedDatePosts, setSelectedDatePosts] = useState<DiaryInfo[]>([]);
 
   const getPostData = useCallback(async () => {
     try {
@@ -53,23 +62,39 @@ const DiaryList = () => {
 
   useEffect(() => {
     if (tag) {
-      setSelectdPosts(
-        posts.filter((el) => {
-          return el.tags.includes(tag);
-        })
-      );
+      setSelectedTagPosts(posts.filter((el) => el.tags.includes(tag)));
     }
   }, [tag, posts]);
 
-  console.log(selectedTagPosts);
+  useEffect(() => {
+    if (startDate !== null && endDate !== null) {
+      setSelectedDatePosts(
+        posts.filter((el) => {
+          return dateRangeCheck(
+            [
+              dayjs(startDate).subtract(1, "day").format("YYYY-MM-DD"),
+              dayjs(endDate).add(1, "day").format("YYYY-MM-DD"),
+            ],
+            dayjs(el.writtenAt).format("YYYY-MM-DD")
+          );
+        })
+      );
+      setTag("");
+    }
+  }, [dates, posts]);
 
   return (
     <>
       <Container>
         <Title>일기 목록</Title>
+        <DateRangeFinder />
 
         {tag.length !== 0
           ? selectedTagPosts.map((diary) => {
+              return <SummaryDiary key={uuidv4()} diary={diary} />;
+            })
+          : dates.length !== 0
+          ? selectedDatePosts.map((diary) => {
               return <SummaryDiary key={uuidv4()} diary={diary} />;
             })
           : posts.map((diary) => {
