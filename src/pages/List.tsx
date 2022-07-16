@@ -38,7 +38,7 @@ const DiaryList = () => {
       const getData = await axios.get(`${URL}/notes`);
 
       if (getData.status === 200) {
-        setPosts(getData.data);
+        setPosts(sortListDescend(getData.data));
       } else {
         throw new Error("Network Error");
       }
