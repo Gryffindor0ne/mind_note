@@ -78,11 +78,14 @@ const TagContainer = styled.div`
 `;
 
 const TagInput = styled.input`
-  height: 2rem;
-  border: none;
+  width: 28rem;
+  height: 3.5rem;
+  border: 4px solid #ffffff;
+  border-radius: 10px;
   font-size: 1.2rem;
   outline: none;
   background-color: #eceff1;
+  padding: 1rem;
 
   ::placeholder {
     color: #b0bec5;
@@ -195,7 +198,11 @@ const NewDiary = () => {
 
   const postNote = async () => {
     if (inputValue.title === "" && inputValue.content === "") {
-      alert("제목과 본문은 빈 칸일 수 없습니다.");
+      Swal.fire({
+        title: "빈 칸을 채워주세요!",
+        text: "제목과 내용은 빈 칸일 수 없습니다.",
+        icon: "warning",
+      });
     } else {
       try {
         const response = await axios.post(`${URL}/notes`, {
@@ -247,7 +254,7 @@ const NewDiary = () => {
               onKeyUp={(event) =>
                 event.key === "Enter" ? addTag(event) : null
               }
-              placeholder="태그를 입력할 수 있습니다."
+              placeholder="태그를 입력할 수 있습니다. 원하는 태그를 적고 엔터키를 치세요~"
             />
             <ul>
               {inputValue.tags.map((el, index) => {

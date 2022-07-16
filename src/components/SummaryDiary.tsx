@@ -9,7 +9,8 @@ import { koreanDateFormatter } from "@utils/dateUtils";
 const Container = styled.section`
   display: flex;
   flex-direction: column;
-  margin: 2rem 0;
+  width: 67vw;
+  margin: 2rem auto;
 `;
 
 const Title = styled.h1`
@@ -24,6 +25,7 @@ const Content = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  line-height: 1.5rem;
   margin: 0.5rem 0;
 `;
 
